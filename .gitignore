@@ -1,0 +1,12 @@
+venv
+*.pyc
+.bin
+.vscode/
+
+# pyenv
+*.python-version
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride

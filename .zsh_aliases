@@ -1,0 +1,52 @@
+[[ "$OSTYPE" != darwin* ]] && alias open='xdg-open'
+
+alias -s {md,markdown,txt, c,js,py}=$EDITOR
+alias -s {org,com,in,io, mkv,mp4,avi, jpg,jpeg,png,gif, pdf,epub,dvi}=open
+
+
+HOMEBREW_NO_ENV_HINTS=1
+HOMEBREW_NO_INSTALL_CLEANUP=1
+
+secrets_path="${HOME}/Library/CloudStorage/Box-Box/Code/.secrets"
+[[ -f "$secrets_path" ]] && source "$secrets_path"
+
+# # ================= Commands =================
+alias n=nvim
+if ! command -v bat &> /dev/null
+    then alias cat=bat
+fi
+if ! command -v zoxide &> /dev/null
+then
+    alias z=zoxide
+    alias zz=z -
+    alias cd=z
+
+fi
+alias "$"="$@" # Pastable code starting with $
+
+#### exa - Color Scheme Definitions
+if ! command -v eza &> /dev/null
+then
+    alias ls=eza
+    alias xls='eza -lag --icons --color=always'
+    alias ll='eza -alh'
+    alias tree='eza --tree'
+    export EZA_COLORS="\
+    uu=36:\
+    gu=37:\
+    sn=32:\
+    sb=32:\
+    da=34:\
+    ur=34:\
+    uw=35:\
+    ux=36:\
+    ue=36:\
+    gr=34:\
+    gw=35:\
+    gx=36:\
+    tr=34:\
+    tw=35:\
+    tx=36:"
+fi
+
+# return 0
