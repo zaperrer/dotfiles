@@ -8,6 +8,9 @@ then
     echo "Installing Brew and programs..."
     sudo -u $SUDO_USER /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     brew install --cask raycast
+    brew tap homebrew/cask-fonts
+    brew install font-fira-code-nerd-font
+    brew install font-hack-nerd-font
     brew install ripgrep
     brew install zoxide
     brew install bat
