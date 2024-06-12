@@ -2,7 +2,6 @@
 alias_path="${HOME}/.zsh_aliases"
 [[ -f "$alias_path" ]] && source "$alias_path"
 export PATH="$HOME/bin/$:$PATH" # Load stowed binaries
-zoxide-init() {eval "$(zoxide init --cmd cd zsh)"}
 
 # # ================= Pyenv =================
 export PYENV_ROOT="$HOME/.pyenv"
@@ -11,16 +10,6 @@ if [[ -d $PYENV_ROOT/bin ]] then
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
     eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-
-# # ================= Warp Skip =================
-term=$(ps -p $(ps -p $$ -o ppid=) -o args=)
-if [[ $term =~ 'Warp' ]]
-then
-    if ! command -v zoxide &> /dev/null
-        zoxide-init
-    fi
-    return 0
 fi
 
 # ================= Plugins =================
@@ -32,9 +21,9 @@ zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 zplug "agkozak/zsh-z"
 zplug "zpm-zsh/colors" # Better with grc
 zplug "chrissicool/zsh-256color" # Desired by autosuggestions
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-autosuggestions"
 zplug "zdharma-continuum/fast-syntax-highlighting", defer:2
+zplug "zsh-users/zsh-completions", defer:2
+zplug "zsh-users/zsh-autosuggestions", defer:2
 zplug "dracula/zsh", as:theme
 
 if ! zplug check; then
@@ -62,7 +51,7 @@ autoload -Uz compinit && compinit
 setopt complete_in_word
 setopt auto_cd
 if ! command -v zoxide &> /dev/null
-    then zoxide-init
+    then eval "$(zoxide init --cmd cd zsh)"
 fi
 
 # History
