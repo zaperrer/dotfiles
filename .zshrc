@@ -4,32 +4,22 @@ alias_path="${HOME}/.zsh_aliases"
 export PATH="$HOME/bin/$:$PATH" # Load stowed binaries
 
 # # ================= Pyenv =================
-export PYENV_ROOT="$HOME/.pyenv"
-if [[ -d $PYENV_ROOT/bin ]] then
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # ================= Plugins =================
-export ZPLUG_HOME=$HOME/.zplug
-[[ -d "${ZPLUG_HOME}" ]] || git clone https://github.com/zplug/zplug $ZPLUG_HOME
-source $ZPLUG_HOME/init.zsh
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
 
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-zplug "agkozak/zsh-z"
-zplug "zpm-zsh/colors" # Better with grc
-zplug "chrissicool/zsh-256color" # Desired by autosuggestions
-zplug "zdharma-continuum/fast-syntax-highlighting", defer:2
-zplug "zsh-users/zsh-completions", defer:2
-zplug "zsh-users/zsh-autosuggestions", defer:2
-zplug "dracula/zsh", as:theme
-
-if ! zplug check; then
-    zplug install
-fi
-zplug load
+zinit load "agkozak/zsh-z"
+zinit load "zpm-zsh/colors" # Better with grc
+zinit load "chrissicool/zsh-256color" # Desired by autosuggestions
+zinit light "zsh-users/zsh-completions"
+zinit light "zsh-users/zsh-autosuggestions"
+zinit light "zdharma-continuum/fast-syntax-highlighting"
+zinit light "mattberther/zsh-pyenv"
+zinit load "dracula/zsh"
 
 # ================= Settings =================
 setopt correct
@@ -50,9 +40,6 @@ bindkey '^e' edit-command-line
 autoload -Uz compinit && compinit
 setopt complete_in_word
 setopt auto_cd
-if ! command -v zoxide &> /dev/null
-    then eval "$(zoxide init --cmd cd zsh)"
-fi
 
 # History
 export HISTFILE="${HOME}/.zsh_history"
@@ -66,5 +53,11 @@ bindkey '^R' history-incremental-search-backward
 # zsh-autosuggestions
 bindkey '^F' autosuggest-execute
 ZSH_AUTOSUGGEST_USE_ASYNC='YAAAAASSSSSS'
+
+# Test load time
+timezsh() {
+  shell=${1-$SHELL}
+  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+}
 
 return 0

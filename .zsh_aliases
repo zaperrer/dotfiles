@@ -21,12 +21,6 @@ fi
 if ! command -v bat &> /dev/null
     then alias cat=bat
 fi
-if ! command -v zoxide &> /dev/null
-then
-    alias z=zoxide
-    alias zz=z -
-    alias cd=z
-fi
 if (( $+commands[thefuck] ))
     then eval $(thefuck --alias)
 fi
