@@ -3,15 +3,21 @@
 alias -s {md,markdown,txt, c,js,py}=$EDITOR
 alias -s {org,com,in,io, mkv,mp4,avi, jpg,jpeg,png,gif, pdf,epub,dvi}=open
 
+HOMEBREW_NO_ENV_HINTS=True
 
-HOMEBREW_NO_ENV_HINTS=1
-HOMEBREW_NO_INSTALL_CLEANUP=1
+# Needed by poetry
+fpath+=~/.zfunc
 
 secrets_path="${HOME}/Library/CloudStorage/Box-Box/Code/.secrets"
 [[ -f "$secrets_path" ]] && source "$secrets_path"
 
 # # ================= Commands =================
-alias n=nvim
+if (( $+commands[nvim] ))
+then
+    alias n=nvim
+    alias vim=nvim
+    alias vi=nvim
+fi
 if ! command -v bat &> /dev/null
     then alias cat=bat
 fi
@@ -20,11 +26,13 @@ then
     alias z=zoxide
     alias zz=z -
     alias cd=z
-
+fi
+if (( $+commands[thefuck] ))
+    then eval $(thefuck --alias)
 fi
 alias "$"="$@" # Pastable code starting with $
 
-#### exa - Color Scheme Definitions
+#### eza - Color Scheme Definitions
 if ! command -v eza &> /dev/null
 then
     alias ls=eza
@@ -48,5 +56,3 @@ then
     tw=35:\
     tx=36:"
 fi
-
-# return 0

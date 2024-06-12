@@ -1,14 +1,8 @@
 # ================= Aliases =================
 alias_path="${HOME}/.zsh_aliases"
-if [[ -f "$alias_path" ]] then
-    source "$alias_path"
-else
-    [[ "$OSTYPE" != darwin* ]] && alias open='xdg-open'
-    alias -s {md,markdown,txt, c,js,py}=$EDITOR
-    alias -s {org,com,in,io, mkv,mp4,avi, jpg,jpeg,png,gif, pdf,epub,dvi}=open
-fi
+[[ -f "$alias_path" ]] && source "$alias_path"
 export PATH="$HOME/bin/$:$PATH" # Load stowed binaries
-zoxide-init() {eval "$(zoxide init zsh)"}
+zoxide-init() {eval "$(zoxide init --cmd cd zsh)"}
 
 # # ================= Pyenv =================
 export PYENV_ROOT="$HOME/.pyenv"
@@ -40,8 +34,7 @@ zplug "zpm-zsh/colors" # Better with grc
 zplug "chrissicool/zsh-256color" # Desired by autosuggestions
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-autosuggestions"
-# zplug "marlonrichert/zsh-autocomplete"
-zplug "zdharma/fast-syntax-highlighting", defer:2
+zplug "zdharma-continuum/fast-syntax-highlighting", defer:2
 zplug "dracula/zsh", as:theme
 
 if ! zplug check; then
@@ -84,8 +77,5 @@ bindkey '^R' history-incremental-search-backward
 # zsh-autosuggestions
 bindkey '^F' autosuggest-execute
 ZSH_AUTOSUGGEST_USE_ASYNC='YAAAAASSSSSS'
-
-# zsh-autocomplete
-# zstyle ':autocomplete:*' min-input 1
 
 return 0
