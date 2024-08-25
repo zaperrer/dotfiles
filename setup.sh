@@ -9,18 +9,21 @@ then
     sudo -u $SUDO_USER /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-brew install git
-brew install stow
-brew install --cask raycast
-brew tap homebrew/cask-fonts
-brew install font-fira-code-nerd-font
-brew install font-hack-nerd-font
-brew install ripgrep
-brew install thefuck
-brew install bat
-brew install fzf
-brew install eza
-brew install pyenv
+for program in \
+  git \
+  stow \
+  raycast \
+  font-fira-code-nerd-font \
+  font-hack-nerd-font \
+  ripgrep \
+  thefuck \
+  bat \
+  fzf \
+  eza \
+  pyenv \
+  ; do
+  brew list $program &>/dev/null || brew install $program
+done
 
 # make sure we have pulled in and updated any submodules
 git submodule init
