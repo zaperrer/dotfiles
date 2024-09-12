@@ -4,19 +4,15 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 source "${ZINIT_HOME}/zinit.zsh"
 
-# zi load wintermi/zsh-brew
 zi snippet OMZP::brew
-zi ice wait lucid has'eza' atinit'AUTOCD=1'; zi light z-shell/zsh-eza
-zi ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'; zi light sindresorhus/pure
-zi ice wait lucid has'poetry'; zi light darvid/zsh-poetry
-zi ice depth=1; zi light jeffreytse/zsh-vi-mode
 zi snippet OMZP::git
 zi snippet OMZL::history.zsh
 zi load fdellwing/zsh-bat
 zi load MichaelAquilina/zsh-you-should-use
 zi load ajeetdsouza/zoxide
 zi load chrissicool/zsh-256color # Desired by autosuggestions
-zi ice wait lucid atinit'source <(fzf --zsh)'; zi light junegunn/fzf
+zi ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'; zi light sindresorhus/pure
+zi ice depth=1; zi light jeffreytse/zsh-vi-mode
 zi light Aloxaf/fzf-tab
 zi light zsh-users/zsh-completions
 zi light zsh-users/zsh-autosuggestions
@@ -27,7 +23,6 @@ zi ice wait'1' lucid; zi light laggardkernel/zsh-thefuck
 # ================= Aliases =================
 alias_path="${HOME}/.zsh_aliases"
 [[ -f "$alias_path" ]] && source "$alias_path"
-export PATH="$HOME/bin/$:$PATH" # Load stowed binaries
 
 # ================= Settings =================
 
