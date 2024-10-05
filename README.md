@@ -1,5 +1,5 @@
 # Run
 
 ```bash
-$ ./setup.sh
+./setup.sh
 ```
