@@ -1,2 +1,5 @@
-# Also install
-* Warp
+# Run
+
+```bash
+$ ./setup.sh
+```
