@@ -7,10 +7,10 @@ source "${ZINIT_HOME}/zinit.zsh"
 zi snippet OMZP::brew
 zi snippet OMZP::git
 zi snippet OMZL::directories.zsh
-zi snippet OMZL::key-bindings.zsh
 zi for \
     atuinsh/atuin \
     fdellwing/zsh-bat \
+    gimbo/gimbo-git.zsh \
     MichaelAquilina/zsh-you-should-use \
     ajeetdsouza/zoxide \
     chrissicool/zsh-256color # Desired by autosuggestions
