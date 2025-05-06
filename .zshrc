@@ -37,9 +37,6 @@ zi wait'1' lucid for \
 # ================= Aliases =================
 alias "$"="$@" # Pastable code starting with $
 
-# Needed by poetry, maybe..
-# fpath+=~/.zfunc
-
 if (( $+commands[nvim] ))
 then
     alias n=nvim
