@@ -1,15 +1,23 @@
-venv
-*.pyc
-.bin
-.vscode/
-
-# pyenv
-*.python-version
-
 # macOS
 .DS_Store
 .AppleDouble
 .LSOverride
 
-# nvim
+# Neovim
 *.log
+noice.log
+
+# Python
+venv/
+*.pyc
+.python-version
+
+# IDE
+.vscode/
+.idea/
+
+# Build artifacts
+.bin/
+
+# Logs and temp files
+*.tmp

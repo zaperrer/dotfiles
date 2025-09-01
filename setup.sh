@@ -1,29 +1,51 @@
 #!/usr/bin/env bash
-mkdir -p ~/.dotfiles
-cd ~/.dotfiles || exit
+set -euo pipefail
 
-if ! command -v brew &>/dev/null; then
-    sudo -u "$SUDO_USER" /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi
+install_homebrew() {
+    if ! command -v brew &>/dev/null; then
+        echo "Installing Homebrew..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    else
+        echo "✓ Homebrew already installed"
+    fi
+}
 
-for program in \
-    git \
-    stow \
-    raycast \
-    font-fira-code-nerd-font \
-    font-hack-nerd-font \
-    ripgrep \
-    thefuck \
-    bat \
-    fzf \
-    eza \
-    pyenv \
-    uv; do
-    brew list $program &>/dev/null || brew install $program
-done
+install_packages() {
+    local packages=(
+        git stow raycast
+        font-fira-code-nerd-font font-hack-nerd-font
+        ripgrep bat fzf eza thefuck
+        pyenv uv
+    )
+    
+    echo "Installing packages..."
+    for package in "${packages[@]}"; do
+        if brew list "$package" &>/dev/null; then
+            echo "✓ $package already installed"
+        else
+            echo "Installing $package..."
+            brew install "$package"
+        fi
+    done
+}
 
-git submodule init
-git submodule update
+setup_dotfiles() {
+    echo "Setting up git submodules..."
+    git submodule update --init --recursive
+    
+    echo "Creating symlinks with stow..."
+    stow -v .
+}
 
-stow -v .
-cd ~ || exit
+main() {
+    echo "Starting dotfiles setup..."
+    cd ~/.dotfiles || { echo "Error: ~/.dotfiles not found"; exit 1; }
+    
+    install_homebrew
+    install_packages
+    setup_dotfiles
+    
+    echo "✓ Dotfiles setup complete!"
+}
+
+main "$@"

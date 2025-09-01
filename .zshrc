@@ -10,10 +10,7 @@ zi snippet OMZL::directories.zsh
 zi for \
     atuinsh/atuin \
     fdellwing/zsh-bat \
-    gimbo/gimbo-git.zsh \
-    MichaelAquilina/zsh-you-should-use \
-    ajeetdsouza/zoxide \
-    chrissicool/zsh-256color # Desired by autosuggestions
+    ajeetdsouza/zoxide
 zi light-mode for \
     Aloxaf/fzf-tab \
     z-shell/zsh-eza \
@@ -47,9 +44,10 @@ fi
 # ================= Settings =================
 
 # Editor
-EDITOR=vim
-VISUAL=vim
-PAGER=cat
+EDITOR=nvim
+VISUAL=nvim
+PAGER=less
+MANPAGER='nvim +Man!'
 
 # zsh-autosuggestions
 bindkey ';' autosuggest-execute
