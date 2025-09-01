@@ -10,6 +10,7 @@ zi snippet OMZL::directories.zsh
 zi for \
     atuinsh/atuin \
     fdellwing/zsh-bat \
+    gimbo/gimbo-git.zsh \
     ajeetdsouza/zoxide
 zi light-mode for \
     Aloxaf/fzf-tab \
