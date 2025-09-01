@@ -17,7 +17,8 @@ for program in \
     bat \
     fzf \
     eza \
-    pyenv; do
+    pyenv \
+    uv; do
     brew list $program &>/dev/null || brew install $program
 done
 
