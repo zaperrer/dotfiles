@@ -1,6 +1,6 @@
 return {
 	{
-		"echasnovski/mini.files",
+		"nvim-mini/mini.files",
 		opts = {
 			options = {
 				-- Whether to use for editing directories
